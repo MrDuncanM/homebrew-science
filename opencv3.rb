@@ -60,6 +60,7 @@ class Opencv3 < Formula
   depends_on "libtiff"
   depends_on "openexr" => :recommended
   depends_on "openni" => :optional
+  depends_on "openni2" => :optional
   depends_on :python => :recommended unless OS.mac? && MacOS.version > :snow_leopard
   depends_on :python3 => :optional
   depends_on "qt" => :optional
@@ -146,6 +147,15 @@ class Opencv3 < Formula
       inreplace "cmake/OpenCVFindOpenNI.cmake" do |s|
         s.gsub! "/usr/include/ni", "#{Formula["openni"].opt_include}/ni"
         s.gsub! "/usr/lib", "#{Formula["openni"].opt_lib}"
+      end
+    end
+
+    if build.with? "openni2"
+      args << "-DWITH_OPENNI2=ON"
+      # Set proper path for Homebrew's openni2
+      inreplace "cmake/OpenCVFindOpenNI.cmake" do |s|
+        s.gsub! "/usr/include/ni", "#{Formula["openni2"].opt_include}/ni"
+        s.gsub! "/usr/lib", "#{Formula["openni2"].opt_lib}"
       end
     end
 
