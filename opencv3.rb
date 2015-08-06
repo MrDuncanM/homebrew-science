@@ -154,7 +154,7 @@ class Opencv3 < Formula
       args << "-DWITH_OPENNI2=ON"
       # Set proper path for Homebrew's openni2
       inreplace "cmake/OpenCVFindOpenNI.cmake" do |s|
-        s.gsub! "/usr/include/ni", "#{Formula["openni2"].opt_include}/ni"
+        s.gsub! "/usr/include/ni", "#{Formula["openni2"].opt_include}/ni2"
         s.gsub! "/usr/lib", "#{Formula["openni2"].opt_lib}"
       end
     end
